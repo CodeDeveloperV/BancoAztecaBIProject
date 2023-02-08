@@ -1,0 +1,33 @@
+{
+	"folders": {},
+	"connections": {
+		"microsoft-1863321283d-75de52b1eda8f2fc": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "10.0.9.12",
+			"save-password": true,
+			"configuration": {
+				"host": "10.0.9.12",
+				"port": "1433",
+				"url": "jdbc:sqlserver://;serverName\u003d10.0.9.12;",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-show-all-schemas@": "true"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
