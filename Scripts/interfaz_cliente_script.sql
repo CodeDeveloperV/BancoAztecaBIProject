@@ -58,26 +58,26 @@ BEGIN
 		fsd002.Pfape2 AS [Segundo Apellido],
 		fsd002.Pffnac AS [Fecha de Nacimiento],
 		fsd002.Pfcant AS [Sexo],
-		fst009.Ecnom AS [Estado Civil],
-		fse001.PaisCon AS [Personas a cargo],
-		fst115.ProfTxt AS [Profesion],
-		fst750.ActNom1 AS [Actividad Economica],
-		sngc60.SNGC60Aux1 AS [Tipo de Ingreso],
-		fse101.PexIng AS [Ingresos],
-		sngc60.SNGC60Rzso AS [Empresa],
-		fst020.Vinom AS [Posicion],
-		sngc60.SNGC60Fine AS [Fecha Ingreso],
-	--	fst014.Tdnom AS [Nombre vendedor]
-		fst014.Tdnom AS [Tipo de identificacion dl conyugue],
-	--	fsr002.Rpndoc AS [Identificacion del cónyugue],
-		fst068.DepNom AS [Provincia],
-		fst070.LocNom AS [Distrito],
-		fst071.Fst071Dsc AS [Corregimiento],
-		sngc13.sngc13Ref AS [Barrio],
-		sngc13.sngc13Ref1 AS [Detalle Ubicación],
-		sngc32.SNGC32Lat AS [Latitud],
-		sngc32.SNGC32Lng AS [Longitud],
-		GETDATE() AS [Fecha de proceso]
+--		fst009.Ecnom AS [Estado Civil],
+--		fse001.PaisCon AS [Personas a cargo],
+--		fst115.ProfTxt AS [Profesion],
+--		fst750.ActNom1 AS [Actividad Economica],
+--		sngc60.SNGC60Aux1 AS [Tipo de Ingreso],
+--		fse101.PexIng AS [Ingresos],
+--		sngc60.SNGC60Rzso AS [Empresa],
+--		fst020.Vinom AS [Posicion],
+--		sngc60.SNGC60Fine AS [Fecha Ingreso],
+--	--	fst014.Tdnom AS [Nombre vendedor]
+--		fst014.Tdnom AS [Tipo de identificacion dl conyugue],
+--	--	fsr002.Rpndoc AS [Identificacion del cónyugue],
+--		fst068.DepNom AS [Provincia],
+--		fst070.LocNom AS [Distrito],
+--		fst071.Fst071Dsc AS [Corregimiento],
+--		sngc13.sngc13Ref AS [Barrio],
+--		sngc13.sngc13Ref1 AS [Detalle Ubicación],
+--		sngc32.SNGC32Lat AS [Latitud],
+--		sngc32.SNGC32Lng AS [Longitud],
+--		GETDATE() AS [Fecha de proceso]
 	FROM dbo.Tabla1 AS t1
 	FULL JOIN dbo.FST014 AS fst014 ON t1.Petdoc = fst014.Tdocum
 	JOIN dbo.FSD002 AS fsd002 ON t1.Pendoc = fsd002.Pfndoc
@@ -112,4 +112,61 @@ USE TestDLR;
 SELECT *
 FROM dbo
 
+
+SELECT 	186 AS Entidad,
+		fst014.Tdnom  AS Tdom,
+		t1.Pendoc AS Documento,
+		fsd002.Pfnom1 AS [Primer Nombre],
+		fsd002.Pfnom2 AS [Segundo Nombre],
+		fsd002.Pfape1 AS [Primer Apellido],
+		fsd002.Pfape2 AS [Segundo Apellido],
+		fsd002.Pffnac AS [Fecha de Nacimiento],
+		fsd002.Pfcant AS [Sexo],
+		fst009.Ecnom AS [Estado Civil],
+		fse001.PaisCon AS [Personas a cargo],
+		fst115.ProfTxt AS [Profesion],
+		fst750.ActNom1 AS [Actividad Economica],
+		sngc60.SNGC60Aux1 AS [Tipo de Ingreso],
+		fse101.PexIng AS [Ingresos],
+		sngc60.SNGC60Rzso AS [Empresa],
+		fst020.Vinom AS [Posicion],
+		sngc60.SNGC60Fine AS [Fecha Ingreso],
+----	--	fst014.Tdnom AS [Nombre vendedor]
+		fst014.Tdnom AS [Tipo de identificacion del conyugue],
+		fsr002.Rpndoc AS [Identificacion del cónyugue]
+		fst068.DepNom AS [Provincia]
+		fst070.LocNom AS [Distrito]
+		fst071.Fst071Dsc AS [Corregimiento],
+		sngc13.sngc13Ref AS [Barrio],
+		sngc13.sngc13Ref1 AS [Detalle Ubicación],
+		sngc32.SNGC32Lat AS [Latitud],
+		sngc32.SNGC32Lng AS [Longitud],
+		GETDATE() AS [Fecha de proceso]
+	FROM TP001 AS t1
+	JOIN dbo.FST014 AS fst014 ON t1.Petdoc = fst014.Tdocum
+	JOIN dbo.FSD002 AS fsd002 ON t1.Pendoc = fsd002.Pfndoc
+	JOIN dbo.FST009 AS fst009 ON fsd002.Pfeciv = fst009.Eccod
+	JOIN dbo.FSE001 AS fse001 ON fse001.D511Ndoc = t1.Pendoc
+	JOIN dbo.FSE002 AS fse002 ON t1.Pendoc = fse002.PfxNdoc
+	LEFT JOIN dbo.FST115 AS fst115 ON fse002.ProfCod = fst115.ProfCod
+	RIGHT JOIN dbo.SNGC60 AS sngc60 ON t1.Pendoc = sngc60.SNGC60Ndoc
+	JOIN dbo.FST750 AS fst750 ON fst750.ActCod1 = sngc60.SNGC60Acte
+	JOIN dbo.FSE101 AS fse101 ON t1.Pendoc = fse101.Pendoc
+	LEFT JOIN dbo.FST020 AS fst020 ON sngc60.SNGC60Vcod = fst020.Vicod
+--	--FULL JOIN dbo.FST746 AS fst746 ON 
+	LEFT JOIN dbo.FSR002 AS fsr002 ON t1.Pendoc = fsr002.Rpndoc
+	LEFT JOIN dbo.SNGC13 AS sngc13 ON t1.Pendoc = sngc13.sngc13Ndoc
+	INNER JOIN dbo.FST068 AS fst068 ON sngc13.sngc13Dpto = fst068.DepCod
+	INNER JOIN dbo.FST070 AS fst070 ON sngc13.sngc13Prov = fst070.LocCod
+	INNER JOIN dbo.FST071 AS fst071 ON sngc13.sngc13Dist = fst071.Fst071Col
+	INNER JOIN dbo.FSR008 AS fsr008 ON t1.Pendoc = fsr008.Pendoc 
+	INNER JOIN dbo.SNGC32 AS sngc32 ON fsr008.CTNRO = sngc32.SNGC32Cta
+	WHERE 
+		t1.Pendoc IS NOT NULL 
+		AND fsd002.Pfnom1 IS NOT NULL
+		AND fsd002.Pfnom2 IS NOT NULL
+		AND fsd002.Pffnac IS NOT NULL
+		AND fsd002.Pfcant IS NOT NULL
+--		AND fst068.DepCod = sng
+	;
 
